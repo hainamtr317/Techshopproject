@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.cart-notify {
+  border-radius: 100%;
+}
+.page-num {
+  cursor: pointer;
+  border-radius: 3px;
+  font-weight: 400;
+}
+.active {
+  background: grey;
+}
+.page-num:hover {
+  background-color: lightgrey;
+  transition-duration: 500ms;
+  transition-property: background-color;
+}
+.cart-header th {
+  padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  background-color: white;
+}
