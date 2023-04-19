@@ -6,7 +6,8 @@ const {
   removeFromWishlist,
   createOrder,
   createReview,
-  orderView,
+  getOrderId,
+  getOrder,
   deleteReview,
 } = require("../controllers/storeController");
 
@@ -16,7 +17,8 @@ router.post("/addToWishlist/", addToWishlist);
 router.delete("/removeFromWishlist/", removeFromWishlist);
 
 router.post("/checkout", createOrder);
-router.post("/orderList", orderView);
+router.post("/orderList/getid", getOrderId);
+router.post("/orderList/getOrder", getOrder);
 
 router.post("/createReview", createReview);
 router.delete("/deleteReview", deleteReview);

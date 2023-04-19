@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Home from "../pages/shop/Home";
 import Cart from "../pages/shop/Cart";
+import Order from "../pages/shop/Order";
 import ProductPage from "../pages/shop/ProductPage";
 import PrivateRoute from "../components/PrivateRoutes";
 import { useEffect } from "react";
@@ -38,6 +39,7 @@ const MainLayoutRoutes = () => {
           <Route path="/cart" element={<Cart />} />
           <Route path="/wishlist" element={<Wishlist />} />
           <Route path="/checkout" element={<CheckOut />} />
+          <Route path="/Order" element={<Order />} />
         </Route>
       </Routes>
     </>

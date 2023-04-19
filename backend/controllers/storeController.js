@@ -192,20 +192,41 @@ exports.createOrder = async (req, res, next) => {
   }
 };
 
-exports.orderView = async (req, res, next) => {
+exports.getOrderId = async (req, res, next) => {
   const { user_id } = req.body;
+
   try {
     const user = await User.findById(user_id);
     if (!user) {
       return next(new ErrorResponse("User haven't login", 400));
     }
+
     const listID = user.orders;
-    const orderList = await listID.map(async (item) => {
-      const order = await Order.findById(item._id);
-      return order;
+
+    const orderList = await listID.map((item) => {
+      return { order_id: item._id.toString() };
+      // try {
+      //   const order = await Order.findById(item._id.toString());
+      //   return { order };
+      // } catch (err) {
+      //   next(err);
+      // }
     });
 
     res.status(200).json({ orderList });
+  } catch (err) {
+    next(err);
+  }
+};
+exports.getOrder = async (req, res, next) => {
+  const { order_id } = req.body;
+
+  try {
+    const order = await Order.findById(order_id);
+    if (!order) {
+      return next(new ErrorResponse("Don't have order it in data", 400));
+    }
+    res.status(200).json({ order });
   } catch (err) {
     next(err);
   }
