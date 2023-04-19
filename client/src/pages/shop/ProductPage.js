@@ -87,7 +87,7 @@ const ProductPage = () => {
     if (state === "Remove") {
       toast.error("Item remove from wishlist.", {
         position: "top-right",
-        autoClose: 2000,
+        autoClose: 1000,
         hideProgressBar: false,
         closeOnClick: true,
         draggable: true,
@@ -98,7 +98,7 @@ const ProductPage = () => {
     if (state === "Add") {
       toast.success("Item added to wishlist.", {
         position: "top-right",
-        autoClose: 2000,
+        autoClose: 1000,
         hideProgressBar: false,
         closeOnClick: true,
         draggable: true,

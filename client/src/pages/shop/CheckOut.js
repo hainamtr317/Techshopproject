@@ -8,9 +8,13 @@ import { useDispatch, useSelector } from "react-redux";
 import Axios from "../../configs/axiosConfig";
 import { checkout } from "../../features/shop/orderSlice";
 import { clearCart, resetAmount } from "../../features/shop/cartSlice";
+import ModalCheckout from "../../components/Store/CheckoutModal";
+import { closeModal, openModal } from "../../features/admin/adminModalSlide";
 
 function CheckOut() {
   const { cart, totalAmount } = useSelector((state) => state.cart);
+  // const {order} = useSelector((state) => state.order);
+
   const [order, setOrder] = useState({});
   const [cities, setCities] = useState("");
   const [districts, setDistricts] = useState("");
@@ -19,6 +23,8 @@ function CheckOut() {
   const [ward, setWard] = useState("");
   const [wards, setWards] = useState("");
   const dispatch = useDispatch();
+  const [datamodal, setDatamodal] = useState({});
+  const { open } = useSelector((state) => state.modal);
   const { loggedUser } = useSelector((state) => state.auth);
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -55,37 +61,51 @@ function CheckOut() {
       }
     };
     fetchProvinces();
-  }, [city, district]);
+  }, [city, district, wards, order]);
   const checkoutHandler = async (e) => {
     e.preventDefault();
-    const response = await dispatch(
-      checkout({
-        ...order,
-        user_id: loggedUser._id,
-        products: cart.map((product) => {
-          return {
-            product_id: product._id,
-            quantity: product.quantity,
-            subTotal: product.quantity * product.price,
-          };
-        }),
-      })
-    ).unwrap();
-    if (response) {
-      dispatch(resetAmount());
-      dispatch(clearCart());
-      setOrder({
-        firstName: "",
-        lastName: "",
-        email: "",
-        phone: "",
-        address: "",
-        city: "",
-        district: "",
-        ward: "",
-        paymentType: "",
-      });
-    }
+    setDatamodal({
+      order,
+      user_id: loggedUser._id,
+      products: cart.map((product) => {
+        return {
+          product_id: product._id,
+          quantity: product.quantity,
+          subTotal: product.quantity * product.price,
+        };
+      }),
+    });
+
+    dispatch(openModal());
+    // const response = await dispatch(
+    //   checkout({
+    //     ...order,
+    //     user_id: loggedUser._id,
+    //     products: cart.map((product) => {
+    //       return {
+    //         product_id: product._id,
+    //         quantity: product.quantity,
+    //         subTotal: product.quantity * product.price,
+    //       };
+    //     }),
+    //   })
+    // ).unwrap();
+
+    // if (response) {
+    //   dispatch(resetAmount());
+    //   dispatch(clearCart());
+    //   setOrder({
+    //     firstName: "",
+    //     lastName: "",
+    //     email: "",
+    //     phone: "",
+    //     address: "",
+    //     city: "",
+    //     district: "",
+    //     ward: "",
+    //     paymentType: "",
+    //   });
+    // }
   };
 
   return (
@@ -97,7 +117,7 @@ function CheckOut() {
         <Breadcrumb.Item href="#">Cart</Breadcrumb.Item>
         <Breadcrumb.Item>Checkout</Breadcrumb.Item>
       </Breadcrumb>
-
+      {open && <ModalCheckout dataModal={datamodal} />}
       <div className="flex flex-col md:flex-row md:justify-center md:gap-x-10 lg:gap-x-20">
         <section className="mt-5 ">
           <form onSubmit={checkoutHandler}>

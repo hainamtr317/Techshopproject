@@ -24,17 +24,17 @@ const Sidebar = () => {
       icon: <BsFillBagFill />,
       to: "/admin/dashboard",
     },
-    {
-      title: "Page",
-      icon: <FaPager />,
-      to: "#",
-    },
-    {
-      title: "Media",
-      spacing: true,
-      icon: <AiFillShopping />,
-      to: "#",
-    },
+    // {
+    //   title: "Page",
+    //   icon: <FaPager />,
+    //   to: "#",
+    // },
+    // {
+    //   title: "Media",
+    //   spacing: true,
+    //   icon: <AiFillShopping />,
+    //   to: "#",
+    // },
     {
       title: "Management",
       submenu: true,
@@ -47,9 +47,9 @@ const Sidebar = () => {
         { title: "Orders", to: "/admin/dashboard" },
       ],
     },
-    { title: "Analytics", to: "#", icon: <SiSimpleanalytics /> },
-    { title: "Inbox", spacing: true, to: "#", icon: <AiOutlineInbox /> },
-    { title: "Settings", to: "#", icon: <AiOutlineSetting /> },
+    // { title: "Analytics", to: "#", icon: <SiSimpleanalytics /> },
+    // { title: "Inbox", spacing: true, to: "#", icon: <AiOutlineInbox /> },
+    // { title: "Settings", to: "#", icon: <AiOutlineSetting /> },
     { title: "Logout", to: "#", icon: <IoLogOutOutline /> },
   ];
   return (
@@ -76,7 +76,7 @@ const Sidebar = () => {
               !open && "scale-0"
             }`}
           >
-            Luan
+            Admin
           </h1>
         </div>
         <ul>

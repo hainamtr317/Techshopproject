@@ -2,6 +2,7 @@ const Product = require("../models/Product");
 const Order = require("../models/Order");
 const User = require("../models/User");
 const ErrorResponse = require("../utils/errorResponse");
+const sendEmail = require("../utils/sendEmail");
 exports.addToCart = async (req, res, next) => {
   const { user_id, quantity, product_id } = req.body;
   try {
@@ -132,21 +133,81 @@ exports.removeFromWishlist = async (req, res, next) => {
     next(error);
   }
 };
-
+// Order
 exports.createOrder = async (req, res, next) => {
-  const { user_id } = req.body;
+  const {
+    user_id,
+    address,
+    city,
+    district,
+    ward,
+    firstName,
+    lastName,
+    email,
+    phone,
+    paymentType,
+    products,
+    total,
+  } = req.body;
+
   try {
     const user = await User.findById(user_id);
     if (!user) {
       return next(new ErrorResponse("User haven't login", 400));
     }
     const order = await Order.create({ ...req.body });
+
     user.orders.push(order._id);
     user.cart = [];
     user.save();
+    const listProduct = await products.map((d) => {
+      return `<p>${d.productName} quantity ${d.quantity} subTotal ${d.subTotal}</p>`;
+    });
+    const message = `<h1>You have Order in my website</h1>
+            ${listProduct}
+             <p>
+              Full Name : ${firstName} ${lastName}
+            </p>
+            <p>Email : ${email} </p>
+            <p>Phone :  ${phone} </p>
+            <p>
+              Address :  ${address} ,  ${ward},
+              ${district}, ${city}
+            </p>
+            <p>Payment Type :  ${paymentType}</p>
+            <p>Total bill is : ${total}</p>
+           
+            <P>Thank you for order from my store </P>
+
+    `;
+    sendEmail({
+      to: email,
+      subject: "order sent mail",
+      text: message,
+    });
+
     res.status(200).json(order);
   } catch (error) {
     next(error);
+  }
+};
+
+exports.orderView = async (req, res, next) => {
+  const { user_id } = req.body;
+  try {
+    const user = await User.findById(user_id);
+    if (!user) {
+      return next(new ErrorResponse("User haven't login", 400));
+    }
+    const listID = user.orders;
+    const orderList = await listID.map(async (item) => {
+      const order = await Order.findById(item._id);
+      return order;
+    });
+
+    res.status(200).json({ orderList });
+  } catch (err) {
+    next(err);
   }
 };
 

@@ -12,7 +12,7 @@ function Login() {
   const [toolTip, showToolTip] = useState(true);
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
-  
+
   const [userPassword, setUserPassword] = useState("");
   const navigate = useNavigate();
 
@@ -28,14 +28,17 @@ function Login() {
   const loginHandler = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await Axios.post("/api/auth/login", {
-        email:email,
-        password:userPassword
-      });
+      if (isUser) {
+        const { data } = await Axios.post("/api/auth/login", {
+          email: email,
+          password: userPassword,
+        });
 
-      localStorage.setItem("authToken", data.token);
-
-      navigate("/");
+        localStorage.setItem("authToken", data.token);
+        navigate("/");
+      } else if (isAdmin) {
+        navigate("/admin");
+      }
     } catch (error) {
       console.log(error);
       setError(error.response.data.error);

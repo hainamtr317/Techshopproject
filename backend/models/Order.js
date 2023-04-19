@@ -17,10 +17,12 @@ const orderSchema = mongoose.Schema({
   products: [
     {
       product_id: { type: mongoose.Schema.Types.ObjectId, ref: "product" },
+      productName: { type: String },
       quantity: Number,
       subTotal: Number,
     },
   ],
   total: { type: Number },
+  orderFinish: { type: Boolean },
 });
 module.exports = mongoose.model("order", orderSchema);

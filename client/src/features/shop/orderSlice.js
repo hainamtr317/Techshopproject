@@ -13,6 +13,17 @@ export const checkout = createAsyncThunk(
     }
   }
 );
+export const UserOrder = createAsyncThunk(
+  "order/view",
+  async (payload, { rejectWithValue }) => {
+    try {
+      const response = await Axios.post("api/store/", payload);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
 
 const initialState = {
   orders: [],
