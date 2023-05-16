@@ -2,7 +2,6 @@ const Product = require("../models/Product");
 const Order = require("../models/Order");
 const User = require("../models/User");
 const ErrorResponse = require("../utils/errorResponse");
-const sendEmail = require("../utils/sendEmail");
 exports.addToCart = async (req, res, next) => {
   const { user_id, quantity, product_id } = req.body;
   try {
@@ -133,7 +132,7 @@ exports.removeFromWishlist = async (req, res, next) => {
     next(error);
   }
 };
-// Order
+
 exports.createOrder = async (req, res, next) => {
   const {
     user_id,
@@ -177,7 +176,7 @@ exports.createOrder = async (req, res, next) => {
             <p>Payment Type :  ${paymentType}</p>
             <p>Total bill is : ${total}</p>
            
-            <P>Thank you for order from my store </P>
+            <P>Thank you for order from my TechStore </P>
 
     `;
     sendEmail({
@@ -189,46 +188,6 @@ exports.createOrder = async (req, res, next) => {
     res.status(200).json(order);
   } catch (error) {
     next(error);
-  }
-};
-
-exports.getOrderId = async (req, res, next) => {
-  const { user_id } = req.body;
-
-  try {
-    const user = await User.findById(user_id);
-    if (!user) {
-      return next(new ErrorResponse("User haven't login", 400));
-    }
-
-    const listID = user.orders;
-
-    const orderList = await listID.map((item) => {
-      return { order_id: item._id.toString() };
-      // try {
-      //   const order = await Order.findById(item._id.toString());
-      //   return { order };
-      // } catch (err) {
-      //   next(err);
-      // }
-    });
-
-    res.status(200).json({ orderList });
-  } catch (err) {
-    next(err);
-  }
-};
-exports.getOrder = async (req, res, next) => {
-  const { order_id } = req.body;
-
-  try {
-    const order = await Order.findById(order_id);
-    if (!order) {
-      return next(new ErrorResponse("Don't have order it in data", 400));
-    }
-    res.status(200).json({ order });
-  } catch (err) {
-    next(err);
   }
 };
 
@@ -253,7 +212,90 @@ exports.createReview = async (req, res, next) => {
     next(error);
   }
 };
+exports.getOrders = async (req, res, next) => {
+  try {
+    const orders = await Order.find({});
 
+    if (!orders || orders.length === 0) {
+      return next(new ErrorResponse("There are no orders", 400));
+    }
+
+    const totalOrderedList = [];
+
+    for (const order of orders) {
+      const products = [];
+
+      for (const item of order.products) {
+        const product = await Product.findById(item.product_id);
+        if (product) {
+          products.push({ ...item.toObject(), name: product.name });
+        }
+      }
+
+      const totalSales = products.reduce(
+        (acc, curr) => acc + curr.subTotal * curr.quantity,
+        0
+      );
+      totalOrderedList.push({
+        id: order._id,
+        products,
+        totalSales,
+        status: order.status,
+        phone: order.phone,
+        firstName: order.firstName,
+        lastName: order.lastName,
+      });
+    }
+
+    res.status(200).json(totalOrderedList);
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.getOrder = async (req, res, next) => {
+  const { user_id } = req.params;
+
+  try {
+    const orders = await Order.find({ user_id: user_id });
+
+    if (!orders || orders.length === 0) {
+      return next(new ErrorResponse("There are no orders", 400));
+    }
+
+    const totalOrderedList = [];
+
+    for (const order of orders) {
+      const products = [];
+
+      for (const item of order.products) {
+        const product = await Product.findById(item.product_id);
+        if (product) {
+          products.push({ ...item.toObject(), name: product.name });
+        }
+      }
+
+      const totalSales = products.reduce(
+        (acc, curr) => acc + curr.subTotal * curr.quantity,
+        0
+      );
+      totalOrderedList.push({
+        id: order._id,
+        products,
+        totalSales,
+        status: order.status,
+        phone: order.phone,
+        firstName: order.firstName,
+        lastName: order.lastName,
+        email: order.email,
+      });
+    }
+
+    res.status(200).json(totalOrderedList);
+  } catch (error) {
+    next(error);
+  }
+};
 exports.deleteReview = async (req, res, next) => {
   const { product_id, user_id, review_id } = req.body;
   try {

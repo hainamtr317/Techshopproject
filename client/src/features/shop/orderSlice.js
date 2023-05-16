@@ -13,32 +13,15 @@ export const checkout = createAsyncThunk(
     }
   }
 );
-// export const UserOrder = createAsyncThunk(
-//   "order/view",
-//   async (payload, { rejectWithValue }) => {
-//     try {
-//       const response = await Axios.post("api/store/", payload);
-//       return response.data;
-//     } catch (error) {
-//       return rejectWithValue(error.response.data);
-//     }
-//   }
-// );
 
 const initialState = {
   orders: [],
-  isLoading: false,
+  isLoading: true,
   errorMessage: "",
 };
 const orderSlice = createSlice({
   name: "order",
   initialState,
-  reducers: {
-    setOrderList: (state, action) => {
-      state.isLoading = false;
-      state.orders = action.payload;
-    },
-  },
   extraReducers: (build) => {
     build.addCase(checkout.fulfilled, (state, action) => {
       state.isLoading = false;
@@ -56,5 +39,4 @@ const orderSlice = createSlice({
   },
 });
 
-export const { setOrderList } = orderSlice.actions;
 export default orderSlice.reducer;

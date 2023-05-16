@@ -32,12 +32,32 @@ export const verifyToken = createAsyncThunk(
   }
 );
 
+export const verifyAdminToken = createAsyncThunk(
+  "auth/verifyAdminToken",
+  async (_, { rejectWithValue }) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("authAdminToken")}`,
+      },
+    };
+    try {
+      const { data } = await Axios.get("/api/user/getLoggedAdmin", config);
+      return data;
+    } catch (error) {
+      localStorage.removeItem("authAdminToken");
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
 const initialState = {
   isLoading: true,
   isSuccess: {},
   errorMessage: "",
   isLogin: false,
   loggedUser: {},
+  loggedAdmin: {},
+  isAdminLogin: false,
 };
 
 const authSlice = createSlice({
@@ -77,6 +97,21 @@ const authSlice = createSlice({
     });
 
     build.addCase(verifyToken.rejected, (state, action) => {
+      state.isLoading = false;
+      state.errorMessage = action.payload.error;
+    });
+
+    build.addCase(verifyAdminToken.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.loggedAdmin = action.payload;
+      state.isAdminLogin = true;
+    });
+
+    build.addCase(verifyAdminToken.pending, (state, action) => {
+      state.isLoading = true;
+    });
+
+    build.addCase(verifyAdminToken.rejected, (state, action) => {
       state.isLoading = false;
       state.errorMessage = action.payload.error;
     });

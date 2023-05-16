@@ -1,8 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { closeModal, openModal } from "../../features/admin/adminModalSlide";
-import { Modal, Button, Spinner } from "flowbite-react";
-import { useState } from "react";
+import { closeModal } from "../../features/admin/adminModalSlide";
+import { Modal, Button } from "flowbite-react";
 import { checkout } from "../../features/shop/orderSlice";
 import { clearCart, resetAmount } from "../../features/shop/cartSlice";
 import CheckoutCard from "./CheckoutCard";
@@ -18,20 +17,6 @@ function ModalCheckout({ dataModal }) {
 
   const checkoutHandler = async (e) => {
     e.preventDefault();
-    // const data = {
-    //   ...order,
-    //   user_id: loggedUser._id,
-    //   products: cart.map((product) => {
-    //     return {
-    //       product_id: product._id,
-    //       productName: product.name,
-    //       quantity: product.quantity,
-    //       subTotal: product.quantity * product.price,
-    //     };
-    //   }),
-    //   total: totalAmount,
-    // };
-    // console.log(JSON.stringify(data));
     const response = await dispatch(
       checkout({
         ...order,
@@ -51,7 +36,10 @@ function ModalCheckout({ dataModal }) {
     if (response) {
       dispatch(resetAmount());
       dispatch(clearCart());
+      alert("Order success");
       navigate("/");
+    } else {
+      alert("can not order ");
     }
   };
   return (

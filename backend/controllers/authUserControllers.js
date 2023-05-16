@@ -78,7 +78,7 @@ exports.confirmRegistration = async (req, res, next) => {
     next(error);
   }
 };
-//LOST - Login
+//POST - Login
 exports.login = async (req, res, next) => {
   const { email, password } = req.body;
 
@@ -94,7 +94,32 @@ exports.login = async (req, res, next) => {
     }
 
     if (user.confirmed == false) {
-      return next(new ErrorResponse("Please confirmed your account.", 400));
+      const confirmedToken = user.getConfirmedToken();
+      await user.save();
+
+      const confirmUrl = `http://localhost:3000/auth/confirmRegistration/${confirmedToken}`;
+
+      const message = `<h1>You have create a new account</h1>
+    <p>Please go to this link to confirm your registration</p>
+    <a href=${confirmUrl} clicktracking=off/>${confirmUrl}</a>`;
+
+      try {
+        sendEmail({
+          to: email,
+          subject: "Confirm Registration",
+          text: message,
+        });
+
+        res.status(200).json({
+          success: true,
+          data: "The confirmation code was sent to your email. Please confirm it.",
+        });
+      } catch (error) {
+        user.confirmRegistrationToken = undefined;
+        user.confirmRegistrationExpire = undefined;
+        await user.save();
+        return new ErrorResponse("Email couldn't be sent", 500);
+      }
     }
     const isMatch = await user.matchPasswords(password);
 
@@ -146,6 +171,7 @@ exports.forgotPassword = async (req, res, next) => {
     next(error);
   }
 };
+
 //PUT - Reset Password
 exports.resetPassword = async (req, res, next) => {
   const resetPasswordToken = crypto

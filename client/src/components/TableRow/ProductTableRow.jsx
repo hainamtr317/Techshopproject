@@ -11,8 +11,10 @@ const ProductTableRow = ({ data }) => {
   const dispatch = useDispatch();
   const { brands } = useSelector((state) => state.brand);
   const { categories } = useSelector((state) => state.category);
+  const { isLoading } = useSelector((state) => state.product);
   const [filteredBrand, setFilteredBrand] = useState({});
   const [filteredCategory, setFilteredCategory] = useState({});
+
   useEffect(() => {
     setFilteredBrand(...brands.filter((brand) => brand._id === data.brand));
     setFilteredCategory(

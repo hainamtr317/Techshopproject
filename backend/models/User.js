@@ -71,6 +71,7 @@ userSchema.methods.getSignedToken = function () {
     expiresIn: process.env.JWT_EXPIRE,
   });
 };
+
 userSchema.methods.getConfirmedToken = function () {
   const confirmToken = crypto.randomBytes(20).toString("hex");
 
@@ -80,7 +81,6 @@ userSchema.methods.getConfirmedToken = function () {
     .digest("hex");
 
   this.confirmRegistrationExpire = Date.now() + 10 * (60 * 1000);
-
   return confirmToken;
 };
 

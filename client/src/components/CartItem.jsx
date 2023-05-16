@@ -34,9 +34,8 @@ const CartItem = ({ data }) => {
     if (quantity <= 1) {
       return quantity;
     }
-    console.log(quantity);
     setQuantity(quantity - 1);
-
+    console.log(quantity);
     console.log(loggedUser._id);
     dispatch(
       addToCart({

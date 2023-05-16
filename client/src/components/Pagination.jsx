@@ -23,10 +23,14 @@ const Pagination = ({ data }) => {
 
   return (
     <>
-      <section className="shadow-lg md:w-4/5 mx-auto">
-        <div className="flex flex-wrap md:flex-row justify-start gap-5 p-[10px]">
+      <section className="md:w-4/5 mx-auto">
+        <div className="flex flex-wrap flex-col md:flex-row md:justify-start p-[10px] content-center md:content-none mx-auto">
           {currentItems.map((data) => {
-            return <ProductCard key={data._id} data={data} />;
+            return (
+              <div key={data._id} className="flex-1 my-3">
+                <ProductCard data={data} />
+              </div>
+            );
           })}
         </div>
         <ReactPaginate
@@ -38,7 +42,7 @@ const Pagination = ({ data }) => {
           marginPagesDisplayed={2}
           previousLabel="< previous"
           renderOnZeroPageCount={null}
-          containerClassName="flex justify-center gap-2 md:gap-5 h-12 content-center text-xl"
+          containerClassName="flex justify-center gap-2 md:gap-5 h-12 content-center text-xl mt-24"
           pageLinkClassName="page-num p-1 md:p-3"
           previousLinkClassName="page-num p-1 md:p-3"
           nextLinkClassName="page-num p-1 md:p-3"

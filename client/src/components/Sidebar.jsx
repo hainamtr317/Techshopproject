@@ -1,8 +1,8 @@
 import React from "react";
 import { BsArrowLeftShort, BsChevronDown, BsFillBagFill } from "react-icons/bs";
+import { HiOutlineShoppingBag } from "react-icons/hi2";
 import {
   AiFillEnvironment,
-  AiFillShopping,
   AiOutlineSetting,
   AiOutlineInbox,
 } from "react-icons/ai";
@@ -13,6 +13,7 @@ import { SiSimpleanalytics } from "react-icons/si";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { openSidebar, openSubMenu } from "../features/admin/adminSidebarSlice";
+import { reset } from "../features/auth/authSlice";
 
 const Sidebar = () => {
   const { open, openSubMenuItem } = useSelector((state) => state.sidebar);
@@ -24,17 +25,11 @@ const Sidebar = () => {
       icon: <BsFillBagFill />,
       to: "/admin/dashboard",
     },
-    // {
-    //   title: "Page",
-    //   icon: <FaPager />,
-    //   to: "#",
-    // },
-    // {
-    //   title: "Media",
-    //   spacing: true,
-    //   icon: <AiFillShopping />,
-    //   to: "#",
-    // },
+    {
+      title: "Orders",
+      icon: <FaPager />,
+      to: "/admin/orders",
+    },
     {
       title: "Management",
       submenu: true,
@@ -44,18 +39,15 @@ const Sidebar = () => {
         { title: "Categories", to: "/admin/category" },
         { title: "Products", to: "/admin/product" },
         { title: "Brand", to: "/admin/brand" },
-        { title: "Orders", to: "/admin/dashboard" },
       ],
     },
-    // { title: "Analytics", to: "#", icon: <SiSimpleanalytics /> },
-    // { title: "Inbox", spacing: true, to: "#", icon: <AiOutlineInbox /> },
-    // { title: "Settings", to: "#", icon: <AiOutlineSetting /> },
-    { title: "Logout", to: "#", icon: <IoLogOutOutline /> },
+
+    { title: "Logout", to: "/auth/login", icon: <IoLogOutOutline /> },
   ];
   return (
     <>
       <div
-        className={`bg-dark-purple h-screen p-5 pt-8 absolute z-50 float-left duration-500 ${
+        className={`bg-[#4B33A8] min-h-screen p-5 pt-8 absolute z-50 float-left duration-500 ${
           open ? "w-72" : "w-20"
         }  `}
       >
@@ -66,7 +58,7 @@ const Sidebar = () => {
           onClick={() => dispatch(openSidebar())}
         />
         <div className="inline-flex">
-          <AiFillEnvironment
+          <HiOutlineShoppingBag
             className={`bg-amber-300 duration-500 text-4xl rounded cursor-pointer block float-left mr-2 ${
               open && "rotate-[360deg]"
             }`}
@@ -76,14 +68,14 @@ const Sidebar = () => {
               !open && "scale-0"
             }`}
           >
-            Admin
+            TechStore admin
           </h1>
         </div>
         <ul>
           {Menus.map((item, index) => (
             <React.Fragment key={index}>
               <li
-                className={`text-gray-300 text-sm flex items-center gap-x-4 cursor-pointer p-2 hover:bg-light-white rounded-md mt-2 ${
+                className={`text-white text-sm flex items-center gap-x-4 cursor-pointer p-2 hover:bg-light-white rounded-md mt-2 ${
                   item.spacing ? "mt-9" : "mt-2"
                 }`}
               >
@@ -93,7 +85,16 @@ const Sidebar = () => {
                     !open && "scale-0"
                   }`}
                   to={item.to}
-                  onClick={item.submenu ? () => dispatch(openSubMenu()) : ""}
+                  onClick={
+                    item.submenu
+                      ? () => dispatch(openSubMenu())
+                      : "" || item.title === "Logout"
+                      ? () => {
+                          localStorage.removeItem("authAdminToken");
+                          dispatch(reset());
+                        }
+                      : ""
+                  }
                 >
                   {item.title}
                 </Link>

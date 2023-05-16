@@ -1,5 +1,5 @@
 import { TextInput } from "flowbite-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import SearchbarCard from "./SearchbarCard";
 
@@ -9,12 +9,22 @@ function SearchBar({ placeholder, data }) {
   const handleFilter = (e) => {
     const { value } = e.target;
     setSearch(value);
-    setFilterData(
-      data.filter((product) =>
-        product.name.toLowerCase().includes(value.toLowerCase())
-      )
-    );
   };
+
+  useEffect(() => {
+    const timerId = setTimeout(() => {
+      setFilterData(
+        data.filter((product) =>
+          product.name.toLowerCase().includes(search.toLowerCase())
+        )
+      );
+    }, 500);
+
+    return () => {
+      clearTimeout(timerId);
+    };
+  }, [search, data]);
+
   return (
     <div>
       <TextInput
@@ -24,7 +34,7 @@ function SearchBar({ placeholder, data }) {
         className="w-[500px]"
         value={search}
         icon={AiOutlineSearch}
-        onChange={handleFilter}
+        onBlur={handleFilter}
       />
       <section className="w-[250px] md:w-[29%] max-h-[300px] bg-white dark:bg-slate-800 overflow-hidden overflow-y-auto shadow-2xl absolute rounded-lg opacity-90">
         <ul className="divide-y divide-gray-200 dark:divide-gray-700">

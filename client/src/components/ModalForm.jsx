@@ -8,7 +8,7 @@ import ModalSelectField from "./ModalSelectField";
 import ModalFileField from "./ModalFileField";
 
 function ModalForm({ dataModal }) {
-  const [data, setData] = useState({});
+  const [data, setData] = useState("");
   const isLoadingProduct = useSelector((state) => state.product.isLoading);
   const isLoadingBrand = useSelector((state) => state.brand.isLoading);
   const isLoadingCategory = useSelector((state) => state.category.isLoading);
@@ -17,7 +17,6 @@ function ModalForm({ dataModal }) {
   const submitHandling = async (e) => {
     e.preventDefault();
     await dataModal.add(data);
-    setData({});
   };
   return (
     <>
@@ -25,7 +24,10 @@ function ModalForm({ dataModal }) {
         <Button
           className="mx-auto"
           color="dark"
-          onClick={() => dispatch(openModal())}
+          onClick={() => {
+            setData("");
+            dispatch(openModal());
+          }}
         >
           Add {dataModal.title}
         </Button>

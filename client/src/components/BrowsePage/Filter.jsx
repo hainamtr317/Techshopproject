@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Spinner } from "flowbite-react";
 import { getCategories } from "../../features/admin/categorySlice";
 import { getBrands } from "../../features/admin/brandSlice";
-export const Filter = ({ setProducts, setResult }) => {
+export const Filter = ({ setProducts, setResult, open }) => {
   const dispatch = useDispatch();
   const { categories } = useSelector((state) => state.category);
   const categoryIsLoading = useSelector((state) => state.category.isLoading);
@@ -19,12 +19,16 @@ export const Filter = ({ setProducts, setResult }) => {
     return <Spinner aria-label="Extra large spinner example" size="xl" />;
   }
   return (
-    <section className="h-[300px] sm:overflow-y-visible sm:col-span-3 lg:col-span-2 w-full sm:w-[200px] md:w-[250px] lg:w-[300px]">
-      <h1 className=" text-2xl font-bold text-[#252121] tracking-widest px-2 py-[13px]">
+    <section
+      className={`overflow-y-auto ${
+        open ? "block" : "hidden"
+      } md:block min-h-[300px] md:h-full sm:col-span-3 lg:col-span-2 min-w-[130px] bg-white md:w-[250px] lg:w-[300px]`}
+    >
+      <h1 className="text-2xl font-bold text-[#252121] tracking-widest px-2 py-[13px]">
         Filter
       </h1>
       <hr />
-      <div className="mt-2 mx-3">
+      <section className="p-3 sm:p-1">
         <h2 className="text-lg font-bold text-[#252121]">Category</h2>
         <ul className="flex flex-col gap-1">
           {categories.length > 0 &&
@@ -38,8 +42,7 @@ export const Filter = ({ setProducts, setResult }) => {
               />
             ))}
         </ul>
-      </div>
-      <div className="mt-2 mx-3">
+
         <h2 className="text-lg font-bold text-[#252121]">Brand</h2>
         <ul className="flex flex-col gap-1">
           {brands.map((brand) => (
@@ -52,7 +55,7 @@ export const Filter = ({ setProducts, setResult }) => {
             />
           ))}
         </ul>
-      </div>
+      </section>
     </section>
   );
 };

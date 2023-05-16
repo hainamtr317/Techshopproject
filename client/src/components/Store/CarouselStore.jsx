@@ -2,7 +2,7 @@ import React from "react";
 import { Carousel } from "flowbite-react";
 function CarouselStore() {
   return (
-    <Carousel className="object-fill">
+    <Carousel>
       <img
         src="https://images.wallpaperscraft.com/image/single/laptop_backlight_colorful_194324_1920x1080.jpg"
         alt="..."
@@ -14,7 +14,7 @@ function CarouselStore() {
         className="object-fill max-w-fit h-[500px] md:h-fit"
       />
       <img
-        src="https://images.wallpaperscraft.com/image/single/laptop_code_programming_212332_1920x1080.jpg"
+        src="https://images.unsplash.com/photo-1516315720917-231ef9acce48?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1767&q=80"
         alt="..."
         className="object-fill max-w-fit h-[500px] md:h-fit"
       />
@@ -23,8 +23,8 @@ function CarouselStore() {
         alt="..."
       />
       <img
-        src="https://img.freepik.com/free-vector/banner-black-friday-super-sale-realistic-3d-black-shopping-basket_548887-26.jpg?w=1380&t=st=1662008789~exp=1662009389~hmac=54f5b69a242e586ad42c2dc7895ef29e5a40fb13fe59b3ed4c954e8964306a44"
-        className="object-fill max-w-[500px]"
+        src="https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
+        className=""
         alt="..."
       />
     </Carousel>

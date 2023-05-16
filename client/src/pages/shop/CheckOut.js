@@ -6,10 +6,10 @@ import { FaCcMastercard } from "react-icons/fa";
 import CheckoutCard from "../../components/Store/CheckoutCard";
 import { useDispatch, useSelector } from "react-redux";
 import Axios from "../../configs/axiosConfig";
-import { checkout } from "../../features/shop/orderSlice";
-import { clearCart, resetAmount } from "../../features/shop/cartSlice";
+// import { checkout } from "../../features/shop/orderSlice";
+// import { clearCart, resetAmount } from "../../features/shop/cartSlice";
 import ModalCheckout from "../../components/Store/CheckoutModal";
-import { closeModal, openModal } from "../../features/admin/adminModalSlide";
+import { openModal } from "../../features/admin/adminModalSlide";
 
 function CheckOut() {
   const { cart, totalAmount } = useSelector((state) => state.cart);
@@ -61,7 +61,7 @@ function CheckOut() {
       }
     };
     fetchProvinces();
-  }, [city, district, wards, order]);
+  }, [city, district, wards, order,ward]);
   const checkoutHandler = async (e) => {
     e.preventDefault();
     setDatamodal({
@@ -77,35 +77,6 @@ function CheckOut() {
     });
 
     dispatch(openModal());
-    // const response = await dispatch(
-    //   checkout({
-    //     ...order,
-    //     user_id: loggedUser._id,
-    //     products: cart.map((product) => {
-    //       return {
-    //         product_id: product._id,
-    //         quantity: product.quantity,
-    //         subTotal: product.quantity * product.price,
-    //       };
-    //     }),
-    //   })
-    // ).unwrap();
-
-    // if (response) {
-    //   dispatch(resetAmount());
-    //   dispatch(clearCart());
-    //   setOrder({
-    //     firstName: "",
-    //     lastName: "",
-    //     email: "",
-    //     phone: "",
-    //     address: "",
-    //     city: "",
-    //     district: "",
-    //     ward: "",
-    //     paymentType: "",
-    //   });
-    // }
   };
 
   return (

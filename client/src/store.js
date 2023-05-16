@@ -9,6 +9,7 @@ import CartReducer from "./features/shop/cartSlice";
 import WishlistReducer from "./features/shop/wishlistSlice";
 import OrderReducer from "./features/shop/orderSlice";
 import paginationSlice from "./features/shop/paginationSlice";
+import dashboardReducer from "./features/admin/dashboardSlice";
 export const store = configureStore({
   reducer: {
     sidebar: SidebarReducer,
@@ -21,5 +22,6 @@ export const store = configureStore({
     wishlist: WishlistReducer,
     order: OrderReducer,
     pagination: paginationSlice,
+    dashboard: dashboardReducer,
   },
 });

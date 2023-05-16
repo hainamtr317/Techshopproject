@@ -87,7 +87,7 @@ const ProductPage = () => {
     if (state === "Remove") {
       toast.error("Item remove from wishlist.", {
         position: "top-right",
-        autoClose: 1000,
+        autoClose: 2000,
         hideProgressBar: false,
         closeOnClick: true,
         draggable: true,
@@ -98,7 +98,7 @@ const ProductPage = () => {
     if (state === "Add") {
       toast.success("Item added to wishlist.", {
         position: "top-right",
-        autoClose: 1000,
+        autoClose: 2000,
         hideProgressBar: false,
         closeOnClick: true,
         draggable: true,
@@ -111,7 +111,7 @@ const ProductPage = () => {
     <Spinner size="xs" className="mt-24" />
   ) : (
     <div className="w-screen h-screen">
-      <div className="mt-24 md:mx-14 lg:mx-44 mx-1">
+      <div className="mt-2 md:mx-14 lg:mx-44 mx-1">
         {/* Breadcrumb */}
         <Breadcrumb
           aria-label=""
