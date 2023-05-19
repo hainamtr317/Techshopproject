@@ -38,8 +38,6 @@ function ModalCheckout({ dataModal }) {
       dispatch(clearCart());
       alert("Order success");
       navigate("/");
-    } else {
-      alert("can not order ");
     }
   };
   return (

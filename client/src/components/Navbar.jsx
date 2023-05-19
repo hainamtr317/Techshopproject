@@ -101,7 +101,7 @@ function Navbar() {
   }, [dispatch, cart, loggedUser]);
 
   return (
-    <nav className="shadow-md w-screen relative top-0 left-0 z-10">
+    <nav className=" w-screen bg-white top-0 left-0 z-10 shadow-md sticky">
       <div className="flex items-center justify-evenly md:justify-around py-4 md:px-10 px-7">
         <div className="font-bold text-3xl cursor-pointer flex items-center text-[#4A99D3]">
           <Link to="/">TechStore</Link>
@@ -120,10 +120,10 @@ function Navbar() {
           isDrop ? "top-20 bg-white" : "top-[-490px]"
         }`}
         >
-          <li className="hover:text-gray-500 duration-500 my-7 md:my-0">
+          <li className="hover:text-gray-500 duration-500 my-7 md:my-0 text-[#4A99D3]">
             <Link to="/">Home</Link>
           </li>
-          <li className="hover:text-gray-500 duration-500 my-7 md:my-0">
+          <li className="hover:text-gray-500 duration-500 my-7 md:my-0 text-[#4A99D3]">
             <Link to="/browse">Browse</Link>
           </li>
 
@@ -172,7 +172,7 @@ function Navbar() {
               </Dropdown.Item>
             </Dropdown>
           ) : (
-            <button className="bg-gray-900 text-white py-2 px-6 font-semibold rounded md:ml-8 hover:bg-slate-700 duration-500">
+            <button className="bg-sky-600 text-white py-2 px-6 font-semibold rounded md:ml-8 hover:bg-sky-900 duration-500">
               <Link to="/auth/login">Login</Link>
             </button>
           )}

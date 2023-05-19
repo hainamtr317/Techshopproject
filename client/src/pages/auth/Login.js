@@ -58,7 +58,7 @@ function Login() {
   };
 
   return (
-    <div className="bg-neutral-200 w-screen h-screen flex justify-center items-center">
+    <div className="bg-auth-code bg-cover w-screen h-screen flex justify-center items-center ">
       <form
         action=""
         className="w-[500px] h-[490px] bg-white rounded-xl"
@@ -70,7 +70,7 @@ function Login() {
           </div>
         )}
 
-        <h1 className="text-center text-3xl font-bold my-5">
+        <h1 className="text-center text-3xl text-sky-700 font-bold my-5">
           {isUser ? "User Login" : "Admin Login"}
         </h1>
         <div>
@@ -171,7 +171,7 @@ function Login() {
               />
             )}
           </div>
-          <button className="bg- white border-2 border-black mt-7 p-2 font-bold rounded-xl hover:bg-slate-400 transition duration-200 ease-linear">
+          <button className="bg- white border-2 border-black mt-7 p-2 font-bold rounded-xl hover:text-white hover:bg-sky-400 transition duration-200 ease-linear">
             Login
           </button>
           {isUser && (

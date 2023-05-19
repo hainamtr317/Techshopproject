@@ -4,7 +4,7 @@ function CarouselStore() {
   return (
     <Carousel>
       <img
-        src="https://images.wallpaperscraft.com/image/single/laptop_backlight_colorful_194324_1920x1080.jpg"
+        src="https://media-cdn-v2.laodong.vn/Storage/NewsPortal/2023/5/1/1187013/Anh-Man-Hinh-2023-05-01.jpg"
         alt="..."
         className="object-fill max-w-fit h-[500px] md:h-fit"
       />
@@ -14,17 +14,18 @@ function CarouselStore() {
         className="object-fill max-w-fit h-[500px] md:h-fit"
       />
       <img
-        src="https://images.unsplash.com/photo-1516315720917-231ef9acce48?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1767&q=80"
+        src="https://xgear.net/wp-content/uploads/2023/04/Hot-sale.jpg"
         alt="..."
         className="object-fill max-w-fit h-[500px] md:h-fit"
       />
       <img
-        src="https://flowbite.com/docs/images/carousel/carousel-4.svg"
+        src="https://images.fpt.shop/unsafe/fit-in/800x300/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2023/5/16/638198443607174846_F-H1_800x300.png"
         alt="..."
+        className="object-fill max-w-fit h-[500px] md:h-fit"
       />
       <img
-        src="https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-        className=""
+        src="https://images.unsplash.com/photo-1502982720700-bfff97f2ecac?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fGNhbWVyYXxlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80"
+        className="object-fill max-w-fit h-[500px] md:h-fit"
         alt="..."
       />
     </Carousel>

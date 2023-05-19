@@ -8,6 +8,7 @@ function SearchBar({ placeholder, data }) {
   const [search, setSearch] = useState("");
   const handleFilter = (e) => {
     const { value } = e.target;
+
     setSearch(value);
   };
 
@@ -34,7 +35,7 @@ function SearchBar({ placeholder, data }) {
         className="w-[500px]"
         value={search}
         icon={AiOutlineSearch}
-        onBlur={handleFilter}
+        onChange={handleFilter}
       />
       <section className="w-[250px] md:w-[29%] max-h-[300px] bg-white dark:bg-slate-800 overflow-hidden overflow-y-auto shadow-2xl absolute rounded-lg opacity-90">
         <ul className="divide-y divide-gray-200 dark:divide-gray-700">

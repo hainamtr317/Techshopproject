@@ -1,12 +1,20 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import CartItem from "../../components/CartItem";
 
 const Cart = () => {
+  const navigation = useNavigate();
   const { cart, totalAmount, totalQuantity } = useSelector(
     (state) => state.cart
   );
+  const handlecartClick = () => {
+    if (cart.length > 0) {
+      navigation("/checkout");
+    } else {
+      alert("your don't have product to checkout");
+    }
+  };
 
   return (
     <main className="w-screen h-screen bg-neutral-200 fixed overflow-auto">
@@ -65,14 +73,16 @@ const Cart = () => {
 
               <button
                 className={`${
-                  cart.length > 0 ? "bg-slate-900" : "bg-gray-600"
+                  cart.length > 0 ? "bg-sky-600" : "bg-slate-900"
                 } font-semibold text-white p-2 rounded-md`}
+                onClick={handlecartClick}
               >
-                {cart.length > 0 ? (
+                CheckOut
+                {/* {cart.length > 0 ? (
                   <Link to="/checkout">Checkout</Link>
                 ) : (
                   "Checkout"
-                )}
+                )} */}
               </button>
             </div>
           </div>

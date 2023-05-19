@@ -71,7 +71,7 @@ const CartItem = ({ data }) => {
             {data.name}
           </label>
           <p
-            className="text-[#AAAAAA] w-4 hover:cursor-pointer"
+            className="text-sky-500 w-4 hover:cursor-pointer"
             onClick={() => handleRemove()}
           >
             Remove

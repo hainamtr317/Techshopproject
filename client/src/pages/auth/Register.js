@@ -41,7 +41,7 @@ const Register = () => {
   };
 
   return (
-    <div className="bg-neutral-200 w-screen h-screen flex justify-center items-center relative">
+    <div className="bg-auth-code bg-cover w-screen h-screen flex justify-center items-center relative">
       <form
         className="w-[500px] h-[570px] bg-white rounded-xl "
         onSubmit={registerHandler}
@@ -56,7 +56,9 @@ const Register = () => {
             <h1>{success}</h1>
           </div>
         )}
-        <h1 className="text-center text-3xl font-bold my-5">Sign Up</h1>
+        <h1 className="text-center text-sky-700  text-3xl font-bold my-5">
+          Sign Up
+        </h1>
         <div className="flex flex-col w-[85%] m-auto">
           <div className="flex flex-col gap-y-3">
             <label htmlFor="email" className="font-semibold text-lg">
@@ -130,7 +132,7 @@ const Register = () => {
               }}
             />
           </div>
-          <button className="bg- white border-2 border-black mt-7 p-2 font-bold rounded-xl hover:bg-slate-400 transition duration-200 ease-linear">
+          <button className="bg- white border-2 border-black mt-7 p-2 font-bold rounded-xl hover:text-white hover:bg-sky-400 transition duration-200 ease-linear">
             Sign Up
           </button>
 

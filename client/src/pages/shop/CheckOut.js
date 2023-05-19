@@ -3,6 +3,7 @@ import { Breadcrumb, TextInput, Select, Button, Radio } from "flowbite-react";
 import { HiHome, HiPhone, HiMail, HiOutlineArrowRight } from "react-icons/hi";
 import { RiVisaFill } from "react-icons/ri";
 import { FaCcMastercard } from "react-icons/fa";
+import { MdOutlinePayments } from "react-icons/md";
 import CheckoutCard from "../../components/Store/CheckoutCard";
 import { useDispatch, useSelector } from "react-redux";
 import Axios from "../../configs/axiosConfig";
@@ -61,7 +62,7 @@ function CheckOut() {
       }
     };
     fetchProvinces();
-  }, [city, district, wards, order,ward]);
+  }, [city, district, wards, order, ward]);
   const checkoutHandler = async (e) => {
     e.preventDefault();
     setDatamodal({
@@ -92,7 +93,7 @@ function CheckOut() {
       <div className="flex flex-col md:flex-row md:justify-center md:gap-x-10 lg:gap-x-20">
         <section className="mt-5 ">
           <form onSubmit={checkoutHandler}>
-            <h1 className="font-semibold text-xl">Billing Address</h1>
+            <h1 className="font-semibold text-xl text-sky-600">Order Form</h1>
             <div className="grid grid-cols-3 gap-4 mt-3 w-full xl:max-w-[600px]">
               <div>
                 <TextInput
@@ -247,17 +248,17 @@ function CheckOut() {
                 />
                 <RiVisaFill className="text-5xl text-slate-500" />
               </div>
-              <div className="col-span-2">
-                <TextInput
-                  type="text"
-                  placeholder="Card Number"
-                  required={true}
+              <div className="flex gap-2 items-center">
+                <Radio
+                  id="united-state"
+                  name="paymentType"
+                  onChange={handleOnChange}
+                  value="COD"
                 />
-              </div>
-              <div className="col-span-1">
-                <TextInput type="text" placeholder="CCV" required={true} />
+                <MdOutlinePayments className="text-5xl text-slate-500" />
               </div>
             </div>
+
             <div className="mt-4">
               <Button color="gray" type="submit">
                 Checkout <HiOutlineArrowRight className="ml-2 h-5 w-5" />

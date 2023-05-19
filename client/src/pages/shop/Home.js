@@ -20,7 +20,7 @@ const Home = () => {
       <section className="mt-10">
         <div className="text-center">
           <h1 className="font-bold text-4xl ">Products</h1>
-          <hr className="w-[100px] border-t-black border-t-2 mx-auto" />
+          <hr className="w-1/3 border-t-black border-t-2 mx-auto" />
 
           {isLoading ? (
             <Spinner color="info" aria-label="Info spinner example" />

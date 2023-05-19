@@ -80,7 +80,7 @@ const ProductCard = ({ data }) => {
   };
   return (
     <>
-      <article className="border-solid border-[1px] border-gray-500 w-[280px] bottom-0 h-[380px] hover:relative hover:bottom-3 rounded-t-xl bg-zinc-50 my-3 flex flex-col justify-start hover:shadow-xl transition-all duration-300 ease-in-out p-2">
+      <article className="border-solid border-[2px] border-gray-500 w-[280px] bottom-0 h-[380px] hover:relative hover:bottom-3 rounded-md bg-zinc-50 my-3 flex flex-col justify-start hover:shadow-xl transition-all duration-300 ease-in-out p-2">
         <img
           src={require(`../Images/${data.img}`)}
           alt="laptop"

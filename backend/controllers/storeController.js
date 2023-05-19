@@ -2,6 +2,7 @@ const Product = require("../models/Product");
 const Order = require("../models/Order");
 const User = require("../models/User");
 const ErrorResponse = require("../utils/errorResponse");
+const sendEmail = require("../utils/sendEmail");
 exports.addToCart = async (req, res, next) => {
   const { user_id, quantity, product_id } = req.body;
   try {
@@ -155,10 +156,10 @@ exports.createOrder = async (req, res, next) => {
       return next(new ErrorResponse("User haven't login", 400));
     }
     const order = await Order.create({ ...req.body });
-
     user.orders.push(order._id);
     user.cart = [];
     user.save();
+
     const listProduct = await products.map((d) => {
       return `<p>${d.productName} quantity ${d.quantity} subTotal ${d.subTotal}</p>`;
     });
@@ -179,13 +180,24 @@ exports.createOrder = async (req, res, next) => {
             <P>Thank you for order from my TechStore </P>
 
     `;
-    sendEmail({
-      to: email,
-      subject: "order sent mail",
-      text: message,
-    });
 
-    res.status(200).json(order);
+    try {
+      sendEmail({
+        to: email,
+        subject: "Create Order",
+        text: message,
+      });
+
+      res.status(200).json({
+        success: true,
+        data: "orderSuccess",
+      });
+    } catch (error) {
+      user.confirmRegistrationToken = undefined;
+      user.confirmRegistrationExpire = undefined;
+      await user.save();
+      return new ErrorResponse("Email couldn't be sent", 500);
+    }
   } catch (error) {
     next(error);
   }

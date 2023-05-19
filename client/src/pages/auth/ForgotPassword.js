@@ -22,7 +22,7 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div className="bg-neutral-200 w-screen h-screen flex justify-center items-center relative">
+    <div className="bg-auth-code bg-cover w-screen h-screen flex justify-center items-center relative">
       {error && (
         <div className="text-center bg-red-400 rounded-lg p-2 opacity-70 translate-y-[-320px] w-[500px] absolute">
           <h1>{error}</h1>
@@ -37,7 +37,9 @@ const ForgotPassword = () => {
         className="w-[500px] h-[300px] bg-white rounded-xl"
         onSubmit={forgotPasswordHandler}
       >
-        <h1 className="text-center text-3xl font-bold my-5">Reset Password</h1>
+        <h1 className="text-center text-sky-700 text-3xl font-bold my-5">
+          Reset Password
+        </h1>
         <div className="flex flex-col w-[85%] m-auto">
           <div className="flex flex-col gap-y-3">
             <label htmlFor="password" className="font-semibold text-lg">
@@ -56,7 +58,7 @@ const ForgotPassword = () => {
               }}
             />
           </div>
-          <button className="bg-white border-2 border-black mt-7 p-2 font-bold rounded-xl hover:bg-slate-400 transition duration-200 ease-linear">
+          <button className="bg-white border-2 border-black mt-7 p-2 font-bold rounded-xl hover:text-white hover:bg-sky-400 transition duration-200 ease-linear">
             Send Email
           </button>
         </div>
