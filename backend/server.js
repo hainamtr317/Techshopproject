@@ -1,4 +1,4 @@
-const dotenv = require("dotenv").config({ path: "../config.env" });
+const dotenv = require("dotenv").config({ path: "./config.env" });
 const express = require("express");
 const cors = require("cors");
 const PORT = process.env.PORT || 5000;
@@ -10,11 +10,7 @@ connectDB();
 const app = express();
 app.use(express.json());
 
-app.use(
-  cors({
-    origin: "http://localhost:3000",
-  })
-);
+app.use(cors());
 
 //Running server
 const server = app.listen(PORT, () => {
