@@ -3,7 +3,7 @@ Techstore is a web application using Reactjs, Nodejs, Docker, Mongodb, .. this w
 The admin side can view the order to add products, edit the product's data, ..
 ## Demo
 ### 1.User
-![](https://drive.google.com/file/d/1AfqnyLcay1KgCHX3Bag0GapITiB4ei_P/view?usp=drive_link)
+![](https://drive.google.com/file/d/1AfqnyLcay1KgCHX3Bag0GapITiB4ei_P/preview)
 To run this project :
 open cmd
 git clone https://github.com/hainamtr317/Techshopproject.git
