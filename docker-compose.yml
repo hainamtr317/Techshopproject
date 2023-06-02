@@ -28,19 +28,6 @@ services:
       - 3000:3000
     depends_on:
       - server
-
-  nginx:
-    depends_on:
-      - server
-      - client
-    restart: always
-    container_name: controller
-    build:
-      dockerfile: Dockerfile
-      context: ./nginx
-    ports:
-      - "3050:80"
-
   
   mongo:
     image: mongo

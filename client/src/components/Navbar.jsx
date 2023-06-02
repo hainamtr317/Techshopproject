@@ -26,6 +26,7 @@ function Navbar() {
   const [data, setData] = useState([]);
   const { totalQuantity, cart } = useSelector((state) => state.cart);
   const { products } = useSelector((state) => state.product);
+  
   useEffect(() => {
     if (effectRan.current === false) {
       const fetchData = async () => {
@@ -101,8 +102,8 @@ function Navbar() {
   }, [dispatch, cart, loggedUser]);
 
   return (
-    <nav className=" w-screen bg-white top-0 left-0 z-10 shadow-md sticky">
-      <div className="flex items-center justify-evenly md:justify-around py-4 md:px-10 px-7">
+    <nav className=" w-screen bg-white dark:bg-slate-800 top-0 left-0 z-10 shadow-md sticky">
+      <div className="flex items-center   justify-evenly md:justify-around py-4 md:px-10 px-7">
         <div className="font-bold text-3xl cursor-pointer flex items-center text-[#4A99D3]">
           <Link to="/">TechStore</Link>
         </div>

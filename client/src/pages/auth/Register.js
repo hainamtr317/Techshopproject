@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { register } from "../../features/auth/authSlice";
@@ -11,6 +11,24 @@ const Register = () => {
   const [success, setSuccess] = useState("");
   const dispatch = useDispatch();
   const { isSuccess, errorMessage } = useSelector((state) => state.auth);
+  useEffect(() => {
+    console.log(isSuccess);
+
+    if (errorMessage) {
+      setError(errorMessage);
+      setTimeout(() => {
+        setError("");
+      }, 5000);
+    }
+
+    if (isSuccess.success && !errorMessage) {
+      console.log("Success");
+      setSuccess(isSuccess.data);
+      setTimeout(() => {
+        setSuccess("");
+      }, 10000);
+    }
+  }, [isSuccess]);
   const registerHandler = (e) => {
     e.preventDefault();
 
@@ -24,20 +42,6 @@ const Register = () => {
     }
 
     dispatch(register({ username, email, password }));
-
-    if (errorMessage) {
-      setError(errorMessage);
-      setTimeout(() => {
-        setError("");
-      }, 5000);
-    }
-
-    if (isSuccess.success && !errorMessage) {
-      setSuccess(isSuccess.data);
-      setTimeout(() => {
-        setSuccess("");
-      }, 10000);
-    }
   };
 
   return (

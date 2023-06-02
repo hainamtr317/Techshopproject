@@ -10,45 +10,44 @@ const Confirmation = () => {
   const params = useParams();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const confirmRegistration = async () => {
-      try {
-        const { data } = await Axios.get(
-          `api/auth/confirmregister/${params.confirmToken}`
-        );
-        setSuccess(data.data);
-        if (success) {
-          setTimeout(() => {
-            navigate("/auth/login");
-          }, 5000);
-        }
-      } catch (error) {
-        setError(error.response.data.error);
+useEffect(() => {
+  const confirmRegistration = async () => {
+    try {
+      const { data } = await Axios.get(
+        `api/auth/confirmregister/${params.confirmToken}`
+      );
+      setSuccess(data);
+      if (data.success) {
+        setTimeout(() => {
+          navigate("/auth/login");
+        }, 2000);
       }
-    };
-    confirmRegistration();
+    } catch (error) {
+      setError(error.response.data.error);
+    }
+  };
+  confirmRegistration();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+}, []);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+return (
+  <div className="bg-neutral-200 w-screen h-screen flex justify-center items-center relative">
+    <div className="w-[550px] h-72 bg-white mb-60 rounded-xl flex flex-col justify-center items-center">
+      <span className="relative mb-6">
+        {success && (
+          <IoMdCheckmarkCircle className="text-[150px] text-green-400 relative duration-500 animate-pulse" />
+        )}
+        {error && !success && (
+          <MdError className="text-[150px] text-red-700 relative duration-500 animate-pulse" />
+        )}
+      </span>
 
-  return (
-    <div className="bg-neutral-200 w-screen h-screen flex justify-center items-center relative">
-      <div className="w-[550px] h-72 bg-white mb-60 rounded-xl flex flex-col justify-center items-center">
-        <span className="relative mb-6">
-          {success && (
-            <IoMdCheckmarkCircle className="text-[150px] text-green-400 relative duration-500 animate-pulse" />
-          )}
-          {error && !success && (
-            <MdError className="text-[150px] text-red-700 relative duration-500 animate-pulse" />
-          )}
-        </span>
-
-        <h1 className="font-sans font-bold text-4xl text-gray-600">
-          {!error ? "Confirmed Email Successfully" : error}
-        </h1>
-      </div>
+      <h1 className="font-sans font-bold text-4xl text-gray-600">
+        {/* {!error ? "Confirmed Email Successfully" : error} */}
+      </h1>
     </div>
-  );
+  </div>
+);
 };
 
 export default Confirmation;

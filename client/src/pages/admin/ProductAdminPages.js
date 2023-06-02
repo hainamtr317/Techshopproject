@@ -28,6 +28,7 @@ const ProductAdminPage = () => {
   const ProductModal = {
     title: "Product",
     add: function (data) {
+      console.log(data);
       dispatch(addProduct(data));
     },
     get: function () {

@@ -17,7 +17,7 @@ exports.register = async (req, res, next) => {
     const confirmedToken = user.getConfirmedToken();
     await user.save();
 
-    const confirmUrl = `http://localhost:3000/auth/confirmRegistration/${confirmedToken}`;
+    const confirmUrl = `http://115.74.80.200:3000/auth/confirmRegistration/${confirmedToken}`;
 
     const message = `<h1>You have create a new account</h1>
     <p>Please go to this link to confirm your registration</p>
@@ -97,7 +97,7 @@ exports.login = async (req, res, next) => {
       const confirmedToken = user.getConfirmedToken();
       await user.save();
 
-      const confirmUrl = `http://localhost:3000/auth/confirmRegistration/${confirmedToken}`;
+      const confirmUrl = `http://techstore.hainamtr.online/auth/confirmRegistration/${confirmedToken}`;
 
       const message = `<h1>You have create a new account</h1>
     <p>Please go to this link to confirm your registration</p>
@@ -110,10 +110,7 @@ exports.login = async (req, res, next) => {
           text: message,
         });
 
-        res.status(200).json({
-          success: true,
-          data: "The confirmation code was sent to your email. Please confirm it.",
-        });
+        next(new ErrorResponse("Email not confirmed", 400));
       } catch (error) {
         user.confirmRegistrationToken = undefined;
         user.confirmRegistrationExpire = undefined;
@@ -147,7 +144,7 @@ exports.forgotPassword = async (req, res, next) => {
     await user.save();
 
     //Template for the verification email
-    const resetUrl = `http://localhost:3000/auth/resetPassword/${resetToken}`;
+    const resetUrl = `http://techstore.hainamtr.online/auth/resetPassword/${resetToken}`;
 
     const message = `<h1>You have requested a password reset</h1>
     <p>Please go to this link to reset your password</p>
